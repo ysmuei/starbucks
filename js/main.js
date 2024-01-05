@@ -36,3 +36,22 @@ window.addEventListener('scroll', _.throttle(function () {
   }
 }, 300));
 // .throttle(함수, 시간) 부하를줌
+
+//홈페이지 이미지 순차적으로 나타내기.
+//이미지 태그의 클래스를 가져와서 각각 요소를 가져와 순차적으로 보이게 만든다.
+const fadeEls = document.querySelectorAll('.visual .fade-in');
+fadeEls.forEach(function (fadeEl, index) {
+  //gsap.to(요소, 지속시간, 옵션);
+  gsap.to(fadeEl, 1, {
+    delay: (index + 1) * .7, // 0.7, 1.4, 2.1, 2.7
+    opacity: 1
+  });
+});
+
+//new Swiper(선택자, 옵션)
+new Swiper('.notice-line .swiper', {
+  // Optional parameters
+  direction: 'vertical',
+  autoplay: true,
+  loop: true,
+});
