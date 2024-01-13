@@ -117,37 +117,38 @@ promotionToggleBtn.addEventListener('click', function () {
 
 // 범위 랜덤 함수(소수점 2자리까지)
 function random(min, max) {
-  return parseFloat((Math.random() * (amx - min) + min).toFixed(2))
+  return parseFloat((Math.random() * (max - min) + min).toFixed(2))
 }
 
 function floatingObject(selector, delay, size) {
-  //gsap.to(요소, 시간, 옵션);
   gsap.to(
     selector, // 선택자
     random(1.5, 2.5), // 애니메이션 동작 시간
-    { // 옵션
-      y: size,
-      repeat: -1, // 반복
-      yoyo: true, // 한 번 재생한 요소를 다시 뒤로 움직이는 요소.
-      ease: Power1.easeInOut,
-      delay: random(0, delay),
+    {
+      delay: random(0, delay), // 얼마나 늦게 애니메이션을 시작할 것인지 지연 시간을 설정.
+      y: size, // `transform: translateY(수치);`와 같음. 수직으로 얼마나 움직일지 설정.
+      repeat: -1, // 몇 번 반복하는지를 설정, `-1`은 무한 반복.
+      yoyo: true, // 한번 재생된 애니메이션을 다시 뒤로 재생.
+      ease: Power1.easeInOut // Easing 함수 적용.
     }
-  );
+  )
 }
-floatingObject('.floating1', 1, 15);
-floatingObject('.floating2', .5, 15);
-floatingObject('.floating3', 1.5, 20);
+floatingObject('.floating1', 1, 15)
+floatingObject('.floating2', .5, 15)
+floatingObject('.floating3', 1.5, 20)
 
-const spyEls = document.querySelectorAll('section.scroll-spy');
+const spyEls = document.querySelectorAll('section.scroll-spy')
+// 요소들 반복 처리!
 spyEls.forEach(function (spyEl) {
   new ScrollMagic
-    .Scene({
+    .Scene({ // 감시할 장면(Scene)을 추가
       triggerElement: spyEl, // 보여짐 여부를 감시할 요소를 지정
-      triggerHook: .8
+      triggerHook: .8 // 화면의 80% 지점에서 보여짐 여부 감시
     })
-    .setClassToggle(spyEl, 'show')
-    .addTo(new ScrollMagic.Controller());
-});
+    .setClassToggle(spyEl, 'show') // 요소가 화면에 보이면 show 클래스 추가
+    .addTo(new ScrollMagic.Controller()) // 컨트롤러에 장면을 할당(필수!)
+})
 
-const thisYear = document.querySelector('this-year')
-thisYear.textContent = new Date().getFullYear();
+
+const thisYear = document.querySelector('.this-year')
+thisYear.textContent = new Date().getFullYear()
